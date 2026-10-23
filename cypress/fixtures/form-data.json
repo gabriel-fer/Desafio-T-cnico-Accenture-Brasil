@@ -1,0 +1,14 @@
+
+{
+  "firstName": "Paulo",
+  "lastName": "Gabriel",
+  "email": "paulo.qa.teste@example.com",
+  "phone": "8499999999",
+  "birthDate": "15 Jul 2000",
+  "subject": "Maths",
+  "address": "Rua de Teste, 123",
+  "state": "NCR",
+  "city": "Delhi",
+  "fileName": "documento.txt",
+  "filePath": "cypress/fixtures/documento.txt"
+}

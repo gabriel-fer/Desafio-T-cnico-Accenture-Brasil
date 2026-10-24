@@ -1,9 +1,5 @@
 
 class BrowserWindowsPage {
-  visitHome() {
-    cy.visit('/');
-  }
-
   openBrowserWindows() {
     cy.contains('h5', 'Alerts, Frame & Windows').click();
     cy.contains('.element-list li', 'Browser Windows').click();
@@ -22,21 +18,21 @@ class BrowserWindowsPage {
   }
 
   assertSamplePage(message) {
-  cy.get('@windowOpen').then((stub) => {
-    const openedUrl = stub.firstCall.args[0];
+    cy.get('@windowOpen').then((stub) => {
+      const openedUrl = stub.firstCall.args[0];
 
-    const sampleUrl = new URL(
-      openedUrl,
-      'https://demoqa.com'
-    ).href;
+      const sampleUrl = new URL(
+        openedUrl,
+        'https://demoqa.com'
+      ).href;
 
-    cy.visit(sampleUrl);
-  });
+      cy.visit(sampleUrl);
+    });
 
-  cy.get('#sampleHeading')
-    .should('be.visible')
-    .and('have.text', message);
-}
+    cy.get('#sampleHeading')
+      .should('be.visible')
+      .and('have.text', message);
+  }
 
   returnToBrowserWindows() {
     cy.visit('/browser-windows');

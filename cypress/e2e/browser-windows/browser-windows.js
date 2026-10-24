@@ -6,9 +6,10 @@ import {
 } from '@badeball/cypress-cucumber-preprocessor';
 
 import BrowserWindowsPage from '../../pages/browser-windows/browser-windows.page';
+import HomePage from '../../pages/home.page';
 
 Given('que acesso o site DemoQA', () => {
-  BrowserWindowsPage.visitHome();
+  HomePage.visit();
 });
 
 When('acesso a opção Browser Windows', () => {

@@ -25,47 +25,43 @@ class PracticeFormPage {
     cy.get('#userNumber').type(phone);
   }
 
-  
-fillBirthDate(date) {
-  const [day, month, year] = date.split(' ');
+  fillBirthDate(date) {
+    const [day, month, year] = date.split(' ');
 
-  const months = {
-    Jan: 'January',
-    Feb: 'February',
-    Mar: 'March',
-    Apr: 'April',
-    May: 'May',
-    Jun: 'June',
-    Jul: 'July',
-    Aug: 'August',
-    Sep: 'September',
-    Oct: 'October',
-    Nov: 'November',
-    Dec: 'December',
-  };
+    const months = {
+      Jan: 'January',
+      Feb: 'February',
+      Mar: 'March',
+      Apr: 'April',
+      May: 'May',
+      Jun: 'June',
+      Jul: 'July',
+      Aug: 'August',
+      Sep: 'September',
+      Oct: 'October',
+      Nov: 'November',
+      Dec: 'December',
+    };
 
-  cy.get('#dateOfBirthInput').click();
+    cy.get('#dateOfBirthInput').click();
 
-  cy.get('.react-datepicker__month-select')
-    .select(months[month]);
+    cy.get('.react-datepicker__month-select')
+      .select(months[month]);
 
-  cy.get('.react-datepicker__year-select')
-    .select(year);
+    cy.get('.react-datepicker__year-select')
+      .select(year);
 
-  cy.get(
-    `.react-datepicker__day--0${day.padStart(2, '0')}:not(.react-datepicker__day--outside-month)`
-  )
-    .click();
-}
+    cy.get(
+      `.react-datepicker__day--0${day.padStart(2, '0')}:not(.react-datepicker__day--outside-month)`
+    )
+      .click();
+  }
 
   selectSubject(subject) {
     cy.get('#subjectsInput')
-    .should('be.visible')
-    .type(subject);
-
-  cy.get('#subjectsInput')
-    .should('be.visible')
-    .type('{enter}');
+      .should('be.visible')
+      .type(subject)
+      .type('{enter}');
   }
 
   selectHobby() {
@@ -111,14 +107,14 @@ fillBirthDate(date) {
   }
 
   closeConfirmation() {
-  cy.get('.modal-backdrop')
-    .click({ force: true, position: 'topLeft' });
+    cy.get('.modal-backdrop')
+      .click({ force: true, position: 'topLeft' });
 
-  cy.get('.modal-content').should('not.exist');
- }
+    cy.get('.modal-content').should('not.exist');
+  }
 
   assertConfirmationClosed() {
-  cy.get('.modal-content').should('not.exist');
+    cy.get('.modal-content').should('not.exist');
   }
 }
 

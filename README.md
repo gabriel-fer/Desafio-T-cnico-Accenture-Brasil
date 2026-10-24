@@ -79,6 +79,20 @@ Na pasta `cypress/e2e/progress-bar`, um cenário para a barra antes de
 25% e valida o percentual atingido. Outro aguarda a conclusão em 100%,
 reinicia a barra e verifica se ela retorna a zero.
 
+## Integração dos testes de API
+
+Os testes de API foram incluídos no mesmo projeto Cypress dos cenários de
+interface. Dessa forma, o desafio técnico fica centralizado em um só
+repositório e pode ser executado e acompanhado junto aos demais testes.
+
+### 6. Book Store API --- fluxo integrado
+
+Na pasta `cypress/e2e/api`, o cenário integrado cria um usuário com
+credenciais exclusivas, gera um token, confirma a autorização, consulta
+os livros disponíveis, aluga dois livros e valida os livros associados
+nos detalhes do usuário. As requisições ficam centralizadas no Page
+Object `cypress/pages/api/book-store-api.page.js` e usam `cy.request()`.
+
 ## Tecnologias
 
 -   Cypress

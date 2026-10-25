@@ -11,5 +11,5 @@ Funcionalidade: Fluxo integrado da API Book Store
     E confirmo que o usuário está autorizado pela API
     E consulto os livros disponíveis pela API
     E seleciono dois livros disponíveis
-    Quando alugo os livros selecionados para esse usuário pela API
+    E alugo os livros selecionados para esse usuário pela API
     Então os detalhes do usuário devem conter os livros alugados

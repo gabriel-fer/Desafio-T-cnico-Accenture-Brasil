@@ -13,6 +13,6 @@ Funcionalidade: Barra de progresso
     Dado que acesso a página Progress Bar
     Quando inicio a barra de progresso
     E aguardo a barra atingir 100%
-    Então a barra deve apresentar 100%
-    Quando reinicio a barra de progresso
+    E a barra deve apresentar 100%
+    E reinicio a barra de progresso
     Então a barra deve retornar a zero

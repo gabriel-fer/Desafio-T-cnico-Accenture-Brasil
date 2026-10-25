@@ -27,6 +27,6 @@ Funcionalidade: Gerenciamento de registros em Web Tables
   Cenário: Criar 12 registros dinâmicos e excluir todos
     Dado que acesso a página Web Tables
     Quando cadastro 12 registros com dados dinâmicos
-    Então os 12 registros devem aparecer na tabela
-    Quando excluo todos os 12 registros criados
+    E os 12 registros devem aparecer na tabela
+    E excluo todos os 12 registros criados
     Então nenhum dos registros criados deve permanecer na tabela

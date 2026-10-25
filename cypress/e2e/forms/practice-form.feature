@@ -17,7 +17,7 @@ Funcionalidade: Formulário de cadastro DemoQA
     Dado que acesso a página Practice Form
     Quando preencho o formulário com dados válidos
     E envio o formulário
-    Então devo visualizar a confirmação do envio
+    E devo visualizar a confirmação do envio
     E os dados enviados devem estar corretos
-    Quando fecho o popup
+    E fecho o popup
     Então o popup não deve mais ser exibido

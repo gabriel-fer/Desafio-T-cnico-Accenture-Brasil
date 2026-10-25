@@ -3,12 +3,27 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:smoke": "cypress run --expose tags=@smoke",
+    "test:api": "cypress run --expose tags=@api"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
+  "cypress-cucumber-preprocessor": {
+    "html": {
+      "enabled": true,
+      "output": "cypress/reports/cucumber-report.html"
+    },
+    "json": {
+      "enabled": true,
+      "output": "cypress/reports/cucumber-report.json"
+    },
+    "attachments": {
+      "addScreenshots": true
+    }
+  },
   "devDependencies": {
     "@4tw/cypress-drag-drop": "^2.3.1",
     "@badeball/cypress-cucumber-preprocessor": "^28.0.1",

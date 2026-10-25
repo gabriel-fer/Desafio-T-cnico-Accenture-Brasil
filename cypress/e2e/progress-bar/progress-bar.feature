@@ -2,6 +2,7 @@
 
 Funcionalidade: Barra de progresso
 
+  @smoke
   Cenário: Parar a barra antes de atingir 25%
     Dado que acesso a página Progress Bar
     Quando inicio a barra de progresso

@@ -108,6 +108,20 @@ Instale as dependências:
 npm install
 ```
 
+Para executar somente o primeiro cenário de cada arquivo `.feature`,
+marcado com a tag `@smoke`, rode:
+
+```bash
+npm run test:smoke
+```
+
+Para executar os cenários de API do arquivo
+`cypress/e2e/api/book-store-api.feature`, rode:
+
+```bash
+npm run test:api
+```
+
 Abra o Cypress:
 
 ``` bash
@@ -120,6 +134,14 @@ Ou execute os testes em modo headless:
 npx cypress run
 ```
 
+## Relatorios de execucao
+
+Ao executar os testes com `cypress run` (incluindo `npm run test:smoke` e `npm run test:api`), o preprocessor gera relatorios com resultado por cenario, passos executados e detalhes dos erros:
+
+- HTML: `cypress/reports/cucumber-report.html`
+- JSON: `cypress/reports/cucumber-report.json`
+
+O relatorio HTML inclui screenshots dos cenarios que falharem. Abra o arquivo HTML no navegador para consultar os cenarios, passos e erros.
 ## Objetivo
 
 Documentar os cenários automatizados, os resultados observados e as

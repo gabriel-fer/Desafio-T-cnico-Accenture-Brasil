@@ -2,6 +2,8 @@
 const { defineConfig } = require('cypress');
 
 module.exports = defineConfig({
+  screenshotOnRunFailure: true,
+
   e2e: {
     specPattern: 'cypress/e2e/**/*.feature',
     baseUrl: 'https://demoqa.com',

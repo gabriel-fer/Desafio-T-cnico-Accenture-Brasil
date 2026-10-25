@@ -7,6 +7,7 @@ Funcionalidade: Gerenciamento de registros em Web Tables
   Quero cadastrar, editar e excluir registros
   Para validar o gerenciamento da tabela
 
+  @smoke
   Cenário: Criar um registro
     Dado que acesso a página Web Tables
     Quando cadastro um novo registro

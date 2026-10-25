@@ -2,6 +2,7 @@
 
 Funcionalidade: Ordenação de elementos
 
+  @smoke
   Cenário: Organizar elementos em ordem crescente
     Dado que acesso a página Sortable
     Quando organizo os elementos em ordem crescente

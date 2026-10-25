@@ -7,6 +7,7 @@ Funcionalidade: Formulário de cadastro DemoQA
   Quero preencher o formulário de cadastro
   Para validar o envio dos dados
 
+  @smoke
   Cenário: Navegar até o formulário
     Dado que acesso o site DemoQA
     Quando abro a página Practice Form

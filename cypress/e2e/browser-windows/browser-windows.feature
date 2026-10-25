@@ -7,6 +7,7 @@ Funcionalidade: Browser Windows
   Quero testar a abertura de novas janelas
   Para validar o comportamento do navegador
 
+  @smoke
   Cenário: Abrir e validar uma nova janela
     Dado que acesso o site DemoQA
     Quando acesso a opção Browser Windows

@@ -1,7 +1,9 @@
 # language: pt
 
-Funcionalidade: Fluxo integrado da API Book Store
 
+Funcionalidade: Fluxo integrado da API Book Store
+  @api
+  @smoke
   Cenário: Criar um usuário autorizado e alugar dois livros
     Dado que preparo credenciais exclusivas para a API Book Store
     Quando crio o usuário pela API

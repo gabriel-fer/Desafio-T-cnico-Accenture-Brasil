@@ -147,3 +147,11 @@ O relatorio HTML inclui screenshots dos cenarios que falharem. Abra o arquivo HT
 Documentar os cenários automatizados, os resultados observados e as
 limitações de interação encontradas durante a execução, mantendo
 transparência sobre os pontos que precisam de investigação adicional.
+
+## Próximos passos
+
+Integrar uma pipeline para executar automaticamente os testes nas branches de release. A configuração dependerá da ferramenta de CI e do repositório usados pela empresa.
+
+A pipeline poderá instalar as dependõncias, executar os testes smoke ou a suíte completa e guardar relatórios e screenshots como artefatos da execução.
+
+Essa automação ajuda a identificar possíveis falhas antes da liberação e facilita a investigação dos resultados. Como os testes acessam o DemoQA público, a execução também depende da disponibilidade desse serviçó.

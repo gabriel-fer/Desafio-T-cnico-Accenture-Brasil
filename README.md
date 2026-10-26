@@ -1,157 +1,118 @@
-# Desafio QA --- DemoQA
+# Desafio QA — DemoQA
 
 ## Sobre o projeto
 
-Projeto de automação de testes end-to-end utilizando Cypress, JavaScript
-e Cucumber (BDD), com organização por funcionalidade e uso do padrão
-Page Object Model.
+Projeto de automação de testes end-to-end e de API para o site [DemoQA](https://demoqa.com/), desenvolvido com Cypress, JavaScript e Cucumber (BDD). Os cenários são escritos em Gherkin, separados por funcionalidade em `cypress/e2e` e implementados com Page Objects em `cypress/pages`.
 
-O projeto contempla cenários para: - Practice Form - Browser Windows -
-Web Tables
+O projeto cobre formulários, navegação entre janelas, gerenciamento de registros em tabela, ordenação de elementos, barra de progresso e operações da API Book Store. Os dados usados no formulário ficam em fixtures; os registros das tabelas e as credenciais da API são gerados dinamicamente para reduzir conflitos entre execuções.
 
-## Observações e limitações encontradas durante os testes
+## Cenários automatizados
 
-Durante a execução dos testes no site [DemoQA](https://demoqa.com/),
-foram observados comportamentos na interface que dificultaram a
-automação de algumas ações. Os pontos abaixo foram registrados como
-limitações encontradas durante a execução e podem depender do estado da
-página, de elementos sobrepostos ou de mudanças na aplicação.
+### Practice Form
 
-### 1. Web Tables --- ações de editar e excluir
+- Navega da página inicial até o formulário e verifica que ele foi exibido.
+- Preenche o formulário com dados da fixture `cypress/fixtures/form-data.json`, incluindo gênero, telefone, data de nascimento, matéria, hobby, arquivo, endereço, estado e cidade.
+- Envia o formulário, valida a confirmação e os dados apresentados e fecha o popup clicando fora do modal.
 
-Ao tentar clicar nos botões de ação **Edit** e **Delete** de um
-registro, o Cypress apresentou erro de interação informando que o
-elemento estava coberto por outro elemento da página.
+### Browser Windows
 
-Exemplo do erro observado:
+- Intercepta a chamada a `window.open` ao clicar em **New Window**.
+- Abre a URL solicitada no contexto do Cypress, valida a mensagem **This is a sample page** e retorna à página Browser Windows.
 
-> `cy.click() failed because this element is being covered by another element`
+### Web Tables
 
-O elemento de ação era localizado corretamente no HTML, dentro da linha
-(`<tr>`) correspondente ao registro, mas a interação era bloqueada pela
-sobreposição reportada pelo Cypress. Por esse motivo, os cenários de
-edição e exclusão podem falhar mesmo quando o registro é encontrado na
-tabela.
+- Cria um registro com dados únicos e valida nome, sobrenome e departamento na linha correspondente.
+- Cria e edita um registro, validando os dados atualizados.
+- Cria e exclui um registro, validando que ele deixou de aparecer na tabela.
+- Em um cenário de regressão, cria 12 registros dinâmicos, amplia a paginação para exibi-los e exclui todos, verificando que nenhum permanece.
 
-### 2. Practice Form --- botão Close do formulário/modal
+### Sortable
 
-Em uma etapa anterior, o botão **Close** do modal também apresentou
-comportamento inconsistente durante a automação. O fechamento não
-ocorreu de forma confiável por meio do botão, exigindo investigação de
-uma forma alternativa de encerrar o modal.
+- Arrasta os seis itens da lista para ordem crescente e valida a sequência completa.
+- Repete a interação para ordem decrescente e valida a sequência.
 
-Esse comportamento foi registrado como uma limitação observada durante a
-execução automatizada.
+### Progress Bar
 
-## Status das limitações
+- Inicia a barra, interrompe a execução ao atingir 24% e verifica que o valor não ultrapassa 25%.
+- Aguarda a barra chegar a 100%, reinicia e verifica que retorna a zero.
 
--   **Cadastro em Web Tables:** o registro aparentou ser inserido
-    corretamente; a validação foi ajustada para localizar o e-mail na
-    célula (`td`) e a linha correspondente (`tr`).
--   **Editar/Excluir em Web Tables:** interação bloqueada em algumas
-    execuções porque os botões foram reportados como cobertos por outro
-    elemento.
--   **Close no Practice Form:** comportamento inconsistente ao tentar
-    fechar o modal pelo botão.
+### Book Store API
 
-> **Nota:** estas observações descrevem o comportamento encontrado
-> durante a execução dos testes. Não constituem confirmação definitiva
-> de defeito no site; a causa pode estar relacionada à interface, a
-> elementos sobrepostos, a anúncios ou ao estado da página no momento da
-> execução.
+- Executa um fluxo integrado usando `cy.request()`: cria um usuário com credenciais exclusivas, gera token, verifica a autorização, consulta os livros disponíveis, seleciona dois títulos e os adiciona à coleção do usuário.
+- Valida os status e respostas das operações e confirma, ao consultar os detalhes do usuário, que os dois livros alugados estão associados à conta.
 
+## Organização
 
-### 1. Browser Windows --- abrir uma nova janela
-
-Na pasta `cypress/e2e/browser-windows`, o cenario solicita a abertura de
-uma nova janela, valida a mensagem exibida na pagina aberta e retorna a
-pagina Browser Windows.
-
-### 4. Sortable --- ordenar elementos
-
-Na pasta `cypress/e2e/sortable`, os cenários organizam os elementos da
-lista em ordem crescente e decrescente e validam a ordem apresentada na
-página.
-
-### 5. Progress Bar --- controlar a barra de progresso
-
-Na pasta `cypress/e2e/progress-bar`, um cenário para a barra antes de
-25% e valida o percentual atingido. Outro aguarda a conclusão em 100%,
-reinicia a barra e verifica se ela retorna a zero.
-
-## Integração dos testes de API
-
-Os testes de API foram incluídos no mesmo projeto Cypress dos cenários de
-interface. Dessa forma, o desafio técnico fica centralizado em um só
-repositório e pode ser executado e acompanhado junto aos demais testes.
-
-### 6. Book Store API --- fluxo integrado
-
-Na pasta `cypress/e2e/api`, o cenário integrado cria um usuário com
-credenciais exclusivas, gera um token, confirma a autorização, consulta
-os livros disponíveis, aluga dois livros e valida os livros associados
-nos detalhes do usuário. As requisições ficam centralizadas no Page
-Object `cypress/pages/api/book-store-api.page.js` e usam `cy.request()`.
+```text
+cypress/
+├── e2e/       # Features Gherkin e definições de passos por funcionalidade
+├── fixtures/  # Dados de teste e arquivo usado no upload
+├── pages/     # Page Objects da interface e da API
+└── support/   # Configuração e comandos de suporte do Cypress
+```
 
 ## Tecnologias
 
--   Cypress
--   JavaScript
--   Cucumber / Gherkin
--   Page Object Model
+- Cypress
+- JavaScript
+- Cucumber / Gherkin (`@badeball/cypress-cucumber-preprocessor`)
+- Page Object Model
+- `@4tw/cypress-drag-drop` para as interações de arrastar e soltar
 
 ## Como executar
 
 Instale as dependências:
 
-``` bash
+```bash
 npm install
 ```
 
-Para executar somente o primeiro cenário de cada arquivo `.feature`,
-marcado com a tag `@smoke`, rode:
+Execute o primeiro cenário marcado com `@smoke` em cada arquivo `.feature`:
 
 ```bash
 npm run test:smoke
 ```
 
-Para executar os cenários de API do arquivo
-`cypress/e2e/api/book-store-api.feature`, rode:
+Execute o cenário da API marcado com `@api`:
 
 ```bash
 npm run test:api
 ```
 
-Abra o Cypress:
+Abra a interface do Cypress:
 
-``` bash
+```bash
 npx cypress open
 ```
 
-Ou execute os testes em modo headless:
+Execute todos os arquivos `.feature` em modo headless:
 
-``` bash
+```bash
 npx cypress run
 ```
 
-## Relatorios de execucao
+## Relatórios
 
-Ao executar os testes com `cypress run` (incluindo `npm run test:smoke` e `npm run test:api`), o preprocessor gera relatorios com resultado por cenario, passos executados e detalhes dos erros:
+As execuções por `cypress run` geram relatórios Cucumber com o resultado por cenário, os passos e detalhes de falhas:
 
 - HTML: `cypress/reports/cucumber-report.html`
 - JSON: `cypress/reports/cucumber-report.json`
 
-O relatorio HTML inclui screenshots dos cenarios que falharem. Abra o arquivo HTML no navegador para consultar os cenarios, passos e erros.
-## Objetivo
+O Cypress também captura screenshots quando um teste falha; elas são anexadas ao relatório HTML conforme a configuração do preprocessor.
 
-Documentar os cenários automatizados, os resultados observados e as
-limitações de interação encontradas durante a execução, mantendo
-transparência sobre os pontos que precisam de investigação adicional.
+## Observações
+
+Os testes de interface e API usam o DemoQA público e dependem da disponibilidade e do comportamento atual desse serviço. Mudanças no site ou instabilidade da aplicação podem afetar os resultados. O fluxo de API cria usuários e associa livros durante a execução; as credenciais são geradas dinamicamente.
+
+### Problemas de interação observados no site
+
+Em execuções anteriores, algumas ações foram impedidas por comportamentos da interface do DemoQA. Esses relatos registram o que foi observado durante a automação e não confirmam, por si só, a causa ou a existência de um defeito permanente no site.
+
+- **Web Tables — edição e exclusão:** os botões **Edit** e **Delete** eram encontrados na linha do registro, mas o Cypress reportava que estavam cobertos por outro elemento (`cy.click() failed because this element is being covered by another element`). Isso impedia a interação e podia fazer os cenários falharem mesmo com o registro localizado.
+- **Practice Form — fechamento da confirmação:** o botão **Close** do modal apresentou comportamento inconsistente e não fechava a confirmação de forma confiável. O código atual tenta encerrar o modal clicando no backdrop; essa implementação não elimina o registro da falha anterior nem garante que o problema do site tenha sido resolvido.
+
+Os cenários de edição e exclusão em Web Tables e de fechamento do popup permanecem documentados e implementados. A execução pode continuar sujeita a essas limitações de interação, além de mudanças ou instabilidade no site.
 
 ## Próximos passos
 
-Integrar uma pipeline para executar automaticamente os testes nas branches de release. A configuração dependerá da ferramenta de CI e do repositório usados pela empresa.
-
-A pipeline poderá instalar as dependõncias, executar os testes smoke ou a suíte completa e guardar relatórios e screenshots como artefatos da execução.
-
-Essa automação ajuda a identificar possíveis falhas antes da liberação e facilita a investigação dos resultados. Como os testes acessam o DemoQA público, a execução também depende da disponibilidade desse serviçó.
+Integrar a execução a uma pipeline de CI para rodar os testes automaticamente nas branches de release e armazenar relatórios e screenshots como artefatos.
